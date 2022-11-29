@@ -1,35 +1,23 @@
 import React from 'react';
 import {TourGuideZone, useTourGuideController} from 'rn-tourguide';
 import {View, Text} from '@components';
-import {useTranslation, useRoute, useAppDispatch, useAppSelector, useTheme} from '@hooks';
-import {goBack} from '@services';
+import {useTranslation, useRoute, useAppDispatch, useCallback, useTheme} from '@hooks';
 import {InfoRouteProp} from '@types';
 import styles from './styles';
 
 const Info: React.FC = () => {
   const {t} = useTranslation();
   const {params} = useRoute<InfoRouteProp>();
+
+
   const dispatch = useAppDispatch();
-  const {canStart, start, tourKey, eventEmitter} = useTourGuideController('second');
+  const {canStart, start, tourKey} = useTourGuideController('second');
 
-  React.useEffect(() => {
-    if (canStart) {
-      start(1);
-    }
-  }, [canStart]);
-  const handleOnStop = () => {
-    goBack();
-  };
-
-  React.useEffect(() => {
-    eventEmitter?.on('stop', handleOnStop);
-    return () => {
-      eventEmitter?.off('stop', handleOnStop);
-    };
-  }, [eventEmitter]);
-
+  const startGuide = useCallback(() => canStart && start(1), [canStart, start]);
   return (
-    <View style={styles.container}>
+    <View
+      style={styles.container}
+      onLayout={startGuide}>
       <View>
         <Text>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore voluptates repellendus nam odio? Ea

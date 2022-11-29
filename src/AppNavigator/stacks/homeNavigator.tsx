@@ -9,8 +9,5 @@ export const HomeNavigator: React.FC = () => {
       <HomeStack.Screen name="Home" component={Home} options={{}} />
       <HomeStack.Screen name="Info" component={Info} />
     </HomeStack.Navigator>
-
   );
 };
-
-

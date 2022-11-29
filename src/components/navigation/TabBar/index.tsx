@@ -32,7 +32,7 @@ const TabBar: React.FC<BottomTabBarProps> = props => {
             <Icon name="home3" size={24} color="blue" />
           </Pressable>
         </TourGuideZone>
-        <Pressable onPress={onPressTabBarIcon('Info')} style={styles.tabIconContainer}>
+        <Pressable onPress={onPressTabBarIcon('Settings')} style={styles.tabIconContainer}>
           <Icon name="spades" size={24} color="yellow" />
         </Pressable>
       </View>

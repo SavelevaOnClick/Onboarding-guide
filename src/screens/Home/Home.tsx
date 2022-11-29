@@ -1,8 +1,6 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
 import {TourGuideZone, useTourGuideController} from 'rn-tourguide';
-import {View, Text, Image, TouchableOpacity, Pressable} from '@components';
-import {width} from '@constants';
+import {View, Text, Image, Pressable} from '@components';
 import {
   useEffect,
   useState,
@@ -11,6 +9,7 @@ import {
   useAppDispatch,
   useAppSelector,
   useTheme,
+  useCallback,
   useNavigation,
 } from '@hooks';
 import {navigate} from '@services';
@@ -21,30 +20,21 @@ const Home: React.FC = () => {
   const {t} = useTranslation();
   const {params} = useRoute<HomeRouteProp>();
   const dispatch = useAppDispatch();
+  const {guideOrder} = useAppSelector(state => state.additional);
   // const data = useAppSelector(selectData);
   const {colors} = useTheme();
-  const {canStart, start, tourKey, eventEmitter} = useTourGuideController('first');
+  const {canStart, start, tourKey} = useTourGuideController('first');
 
-  React.useEffect(() => {
-    if (canStart) {
-      start(1);
+  useEffect(() => {
+    if (guideOrder) {
+      canStart && start(guideOrder);
     }
-  }, [canStart]);
+  }, [guideOrder]);
 
-  const handleOnStop = () => {
-    navigate('Info');
-  };
-
-  React.useEffect(() => {
-    eventEmitter?.on('stop', handleOnStop);
-
-    return () => {
-      eventEmitter?.off('stop', handleOnStop);
-    };
-  }, [eventEmitter]);
+  const startGuide = useCallback(() => canStart && start(1), [canStart]);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} onLayout={startGuide}>
       <View style={styles.tabContainer}>
         <View style={styles.guideZoneFirstContentContainer}>
           <TourGuideZone

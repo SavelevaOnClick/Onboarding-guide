@@ -14,5 +14,6 @@ export type TGlobalState = {
 	additional: {
 	  loading: boolean;
 	  currentRouteName: string;
+	  guideOrder: null | number;
 	}
 }

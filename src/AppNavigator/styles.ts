@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
   headerTitleStyle: {},
   tourGuideWrapper: {
     backgroundColor: '#fff',
+    flex:1
   },
 });
 

@@ -10,6 +10,7 @@ module.exports = [
     message: "Select screen folder...",
     choices: [
       //ADD MORE SCREENS
+      'Settings',
       'Info',
       "Onboarding",
       "SignIn",
