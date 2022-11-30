@@ -34,31 +34,41 @@ const TooltipComponent: React.ComponentType<TooltipProps> | undefined = ({
     goBack();
   }, []);
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.descriptionContainer}>
-        <Text style={styles.description}>{currentStep.text}</Text>
+  if (tourKey === 'first') {
+    return (
+      <View style={styles.container}>
+        <View style={styles.descriptionContainer}>
+          <Text style={styles.description}>{currentStep.text}</Text>
+        </View>
+        <View style={isFirstStep ? styles.buttonContainer : styles.buttonsContainer}>
+          {!isFirstStep ? (
+            <Pressable onPress={handlePrev} style={styles.button}>
+              <Text>вернуться</Text>
+            </Pressable>
+          ) : null}
+          <Pressable onPress={isLastStep ? goNextPartGuide : handleNext} style={styles.button}>
+            <Text>дальше</Text>
+          </Pressable>
+        </View>
       </View>
-      <View style={isFirstStep && tourKey === 'first' ? styles.buttonContainer : styles.buttonsContainer}>
-        {!isFirstStep || (isFirstStep && tourKey === 'second') ? (
-          <Pressable onPress={tourKey === 'second' ? goPrevPartGuide : handlePrev} style={styles.button}>
+    );
+  } else {
+    return (
+      <View style={styles.container}>
+        <View style={styles.descriptionContainer}>
+          <Text style={styles.description}>{currentStep.text}</Text>
+        </View>
+        <View style={styles.buttonsContainer}>
+          <Pressable onPress={goPrevPartGuide} style={styles.button}>
             <Text>вернуться</Text>
           </Pressable>
-        ) : null}
-        <Pressable
-          onPress={
-            isLastStep && tourKey === 'second'
-              ? setEnd
-              : isLastStep && tourKey === 'first'
-              ? goNextPartGuide
-              : handleNext
-          }
-          style={styles.button}>
-          <Text>{tourKey === 'second' ? 'конец' : 'дальше'}</Text>
-        </Pressable>
+          <Pressable onPress={setEnd} style={styles.button}>
+            <Text>конец</Text>
+          </Pressable>
+        </View>
       </View>
-    </View>
-  );
+    );
+  }
 };
 
 export default TooltipComponent;
