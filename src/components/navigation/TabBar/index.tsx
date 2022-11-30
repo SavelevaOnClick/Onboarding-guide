@@ -28,7 +28,7 @@ const TabBar: React.FC<BottomTabBarProps> = props => {
           zone={3}
           tourKey={tourKey}
           text="Это третья зона">
-          <Pressable onPress={onPressTabBarIcon('Home')} style={styles.tabIconContainer}>
+          <Pressable onPress={onPressTabBarIcon('HomeNavigator')} style={styles.tabIconContainer}>
             <Icon name="home3" size={24} color="blue" />
           </Pressable>
         </TourGuideZone>
