@@ -1,23 +1,22 @@
 import React from 'react';
 import {TourGuideZone, useTourGuideController} from 'rn-tourguide';
 import {View, Text} from '@components';
-import {useTranslation, useRoute, useAppDispatch, useCallback, useTheme} from '@hooks';
+import {useTranslation, useRoute, useAppDispatch, useCallback, useTheme, useAppSelector} from '@hooks';
 import {InfoRouteProp} from '@types';
 import styles from './styles';
 
 const Info: React.FC = () => {
   const {t} = useTranslation();
   const {params} = useRoute<InfoRouteProp>();
-
+  const {firstOpenApp} = useAppSelector(state => state.global);
 
   const dispatch = useAppDispatch();
   const {canStart, start, tourKey} = useTourGuideController('second');
 
-  const startGuide = useCallback(() => canStart && start(1), [canStart, start]);
+  const startGuide = useCallback(() => firstOpenApp && canStart && start(1), [canStart, firstOpenApp, start]);
+
   return (
-    <View
-      style={styles.container}
-      onLayout={startGuide}>
+    <View style={styles.container} onLayout={startGuide}>
       <View>
         <Text>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore voluptates repellendus nam odio? Ea

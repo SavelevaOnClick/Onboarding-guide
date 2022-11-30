@@ -1,17 +1,7 @@
 import React from 'react';
 import {TourGuideZone, useTourGuideController} from 'rn-tourguide';
 import {View, Text, Image, Pressable} from '@components';
-import {
-  useEffect,
-  useState,
-  useTranslation,
-  useRoute,
-  useAppDispatch,
-  useAppSelector,
-  useTheme,
-  useCallback,
-  useNavigation,
-} from '@hooks';
+import {useEffect, useTranslation, useRoute, useAppDispatch, useAppSelector, useTheme, useCallback} from '@hooks';
 import {navigate} from '@services';
 import {HomeRouteProp} from '@types';
 import styles from './styles';
@@ -21,20 +11,24 @@ const Home: React.FC = () => {
   const {params} = useRoute<HomeRouteProp>();
   const dispatch = useAppDispatch();
   const {guideOrder} = useAppSelector(state => state.additional);
+  const {firstOpenApp} = useAppSelector(state => state.global);
   // const data = useAppSelector(selectData);
   const {colors} = useTheme();
   const {canStart, start, tourKey} = useTourGuideController('first');
 
   useEffect(() => {
-    if (guideOrder) {
-      canStart && start(guideOrder);
-    }
-  }, [guideOrder]);
+    guideOrder && canStart && start(guideOrder);
+  }, [guideOrder, canStart]);
 
-  const startGuide = useCallback(() => canStart && start(1), [canStart]);
+  const startGuide = useCallback(() => firstOpenApp && canStart && start(1), [canStart, firstOpenApp]);
+
+  const pressableInfo = useCallback(() => navigate('Info'), []);
 
   return (
     <View style={styles.container} onLayout={startGuide}>
+      <Pressable onPress={pressableInfo}>
+        <Text>Go To INFO</Text>
+      </Pressable>
       <View style={styles.tabContainer}>
         <View style={styles.guideZoneFirstContentContainer}>
           <TourGuideZone

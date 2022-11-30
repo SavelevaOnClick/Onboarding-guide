@@ -5,6 +5,7 @@ import {useAppDispatch} from '@hooks';
 import {setGuideOrder} from '@reducers/additional';
 import {goBack, navigate} from '@services';
 import styles from './styles';
+import { setFirstOpenApp } from '@reducers/global';
 
 const TooltipComponent: React.ComponentType<TooltipProps> | undefined = ({
   isFirstStep,
@@ -31,6 +32,7 @@ const TooltipComponent: React.ComponentType<TooltipProps> | undefined = ({
 
   const setEnd = useCallback(() => {
     handleStop && handleStop();
+    dispatch(setFirstOpenApp(false));
     goBack();
   }, []);
 
