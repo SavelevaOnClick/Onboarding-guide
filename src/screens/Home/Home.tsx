@@ -6,19 +6,21 @@ import {navigate} from '@services';
 import {HomeRouteProp} from '@types';
 import styles from './styles';
 
+const LAST_GUIDE_STEP = 3;
+
 const Home: React.FC = () => {
   const {t} = useTranslation();
   const {params} = useRoute<HomeRouteProp>();
   const dispatch = useAppDispatch();
-  const {guideOrder} = useAppSelector(state => state.additional);
+  const {toggleFirstTourGuide} = useAppSelector(state => state.additional);
   const {firstOpenApp} = useAppSelector(state => state.global);
   // const data = useAppSelector(selectData);
   const {colors} = useTheme();
   const {canStart, start, tourKey} = useTourGuideController('first');
 
   useEffect(() => {
-    guideOrder && canStart && start(guideOrder);
-  }, [guideOrder, canStart]);
+    toggleFirstTourGuide && canStart && start(LAST_GUIDE_STEP);
+  }, [toggleFirstTourGuide, canStart]);
 
   const startGuide = useCallback(() => firstOpenApp && canStart && start(1), [canStart, firstOpenApp]);
 

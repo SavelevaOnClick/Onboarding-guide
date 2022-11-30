@@ -2,10 +2,10 @@ import React, {useCallback} from 'react';
 import {TooltipProps} from 'rn-tourguide';
 import {Pressable, Text, View} from '@components';
 import {useAppDispatch} from '@hooks';
-import {setGuideOrder} from '@reducers/additional';
+import {setToggleFirstTourGuide} from '@reducers/additional';
+import {setFirstOpenApp} from '@reducers/global';
 import {goBack, navigate} from '@services';
 import styles from './styles';
-import { setFirstOpenApp } from '@reducers/global';
 
 const TooltipComponent: React.ComponentType<TooltipProps> | undefined = ({
   isFirstStep,
@@ -20,13 +20,13 @@ const TooltipComponent: React.ComponentType<TooltipProps> | undefined = ({
 
   const goPrevPartGuide = useCallback(() => {
     handleStop && handleStop();
-    dispatch(setGuideOrder(3));
+    dispatch(setToggleFirstTourGuide(true));
     navigate('Home');
   }, []);
 
   const goNextPartGuide = useCallback(() => {
     handleStop && handleStop();
-    dispatch(setGuideOrder(null));
+    dispatch(setToggleFirstTourGuide(false));
     navigate('Info');
   }, []);
 

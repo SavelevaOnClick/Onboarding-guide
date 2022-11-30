@@ -1,19 +1,19 @@
 export enum EDataLoadingStatus {
-	 IDLE = 'idle',
-	 LOADING = 'loading',
-	 FULFILLED = 'fulfilled',
-	 REJECTED = 'rejected',
+  IDLE = 'idle',
+  LOADING = 'loading',
+  FULFILLED = 'fulfilled',
+  REJECTED = 'rejected',
 }
 
 export type TGlobalState = {
-	global: {
-	  token: string;
-	  firstOpenApp: boolean;
-	  language: string;
-	},
-	additional: {
-	  loading: boolean;
-	  currentRouteName: string;
-	  guideOrder: null | number;
-	}
-}
+  global: {
+    token: string;
+    firstOpenApp: boolean;
+    language: string;
+  };
+  additional: {
+    loading: boolean;
+    currentRouteName: string;
+    toggleFirstTourGuide: boolean;
+  };
+};

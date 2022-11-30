@@ -7,7 +7,7 @@ type TInitialState = TGlobalState['additional'];
 const initialState: TInitialState = {
   loading: false,
   currentRouteName: '',
-  guideOrder: null,
+  toggleFirstTourGuide: false,
 };
 
 const additionalSlice = createSlice({
@@ -20,15 +20,15 @@ const additionalSlice = createSlice({
     setCurrentRouteName: (state, action) => {
       state.currentRouteName = action.payload;
     },
-    setGuideOrder: (state, action) => {
-      state.guideOrder = action.payload;
+    setToggleFirstTourGuide: (state, action) => {
+      state.toggleFirstTourGuide = action.payload;
     },
     resetAdditional: () => initialState,
   },
 });
 
 // actions
-export const {setLoading, setCurrentRouteName, setGuideOrder} = additionalSlice.actions;
+export const {setLoading, setCurrentRouteName, setToggleFirstTourGuide} = additionalSlice.actions;
 
 // reducer
 export const additional = additionalSlice.reducer;
